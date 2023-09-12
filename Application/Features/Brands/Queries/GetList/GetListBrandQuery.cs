@@ -33,7 +33,8 @@ namespace Application.Features.Brands.Queries.GetList
                 Paginate<Brand> brands = await _brandRepository.GetListAsync(
                     index:request.PageRequest.PageIndex,
                     size:request.PageRequest.PageSize,
-                    cancellationToken:cancellationToken
+                    cancellationToken:cancellationToken,
+                    withDeleted:true
                     );
 
                 GetListResponse<GetListBrandListItemDto> response = _mapper.Map<GetListResponse<GetListBrandListItemDto>>(brands);
