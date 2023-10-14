@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20230928131340_init")]
-    partial class init
+    [Migration("20231013121049_Init1")]
+    partial class Init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -172,12 +172,9 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Name");
 
-                    b.Property<int>("TransmissionId")
-                        .HasColumnType("int")
+                    b.Property<Guid>("TransmissionId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("TransmissionId");
-
-                    b.Property<Guid?>("TransmissionId1")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2")
@@ -189,7 +186,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("FuelId");
 
-                    b.HasIndex("TransmissionId1");
+                    b.HasIndex("TransmissionId");
 
                     b.HasIndex(new[] { "Name" }, "UK_Models_Name")
                         .IsUnique();
@@ -256,7 +253,9 @@ namespace Persistence.Migrations
 
                     b.HasOne("Domain.Entities.Transmission", "Transmission")
                         .WithMany("Models")
-                        .HasForeignKey("TransmissionId1");
+                        .HasForeignKey("TransmissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Brand");
 
