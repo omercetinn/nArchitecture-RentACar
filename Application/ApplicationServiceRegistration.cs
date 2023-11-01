@@ -1,4 +1,5 @@
-﻿using Core.Application.Pipelines.Transaction;
+﻿using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
 using FluentValidation;
@@ -29,6 +30,7 @@ namespace Application
                 configuration.AddOpenBehavior(typeof(RequestValidationBehavior<,>)); //çalışırken gelip buraya bakacak
 
                 configuration.AddOpenBehavior(typeof(TransactionScopeBehavior<,>)); //çalışırken gelip buraya bakacak
+                configuration.AddOpenBehavior(typeof(CachingBehavior<,>)); //çalışırken gelip buraya bakacak
             });
             return services;
         }
