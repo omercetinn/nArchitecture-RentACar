@@ -31,6 +31,7 @@ namespace Application
 
                 configuration.AddOpenBehavior(typeof(TransactionScopeBehavior<,>)); //çalışırken gelip buraya bakacak
                 configuration.AddOpenBehavior(typeof(CachingBehavior<,>)); //çalışırken gelip buraya bakacak
+                configuration.AddOpenBehavior(typeof(CacheRemovingBehavior<,>)); //çalışırken gelip buraya bakacak
             });
             return services;
         }
