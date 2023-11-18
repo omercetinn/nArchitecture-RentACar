@@ -1,7 +1,10 @@
 ﻿using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
+using Core.CrossCuttingConcerns.Serilog;
+using Core.CrossCuttingConcerns.Serilog.Logger;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -32,7 +35,9 @@ namespace Application
                 configuration.AddOpenBehavior(typeof(TransactionScopeBehavior<,>)); //çalışırken gelip buraya bakacak
                 configuration.AddOpenBehavior(typeof(CachingBehavior<,>)); //çalışırken gelip buraya bakacak
                 configuration.AddOpenBehavior(typeof(CacheRemovingBehavior<,>)); //çalışırken gelip buraya bakacak
+                configuration.AddOpenBehavior(typeof(LoggingBehavior<,>)); //çalışırken gelip buraya bakacak
             });
+            services.AddSingleton<LoggerServiceBase, FileLogger>();
             return services;
         }
         //Ayağa kalkınca direkt burayı çalıştır ki kurallara göre hareket etsin
