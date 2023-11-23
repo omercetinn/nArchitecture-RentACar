@@ -37,7 +37,7 @@ namespace Application
                 configuration.AddOpenBehavior(typeof(CacheRemovingBehavior<,>)); //çalışırken gelip buraya bakacak
                 configuration.AddOpenBehavior(typeof(LoggingBehavior<,>)); //çalışırken gelip buraya bakacak
             });
-            services.AddSingleton<LoggerServiceBase, FileLogger>();
+            services.AddSingleton<LoggerServiceBase, MsSqlLogger>();
             return services;
         }
         //Ayağa kalkınca direkt burayı çalıştır ki kurallara göre hareket etsin
